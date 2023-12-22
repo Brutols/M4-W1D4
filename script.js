@@ -1,15 +1,15 @@
 let url = "https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem";
 
-let showCards = function () {
+let showCards = () => {
   fetch(url)
-    .then(function (response) {
+    .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
         throw response.status;
       }
     })
-    .then(function (songs) {
+    .then((songs) => {
       let container = document.querySelector("#searchResults .row");
       container.innerHTML = "";
       for (const song of songs.data) {
@@ -21,12 +21,15 @@ let showCards = function () {
             </div>
             `;
       }
+    })
+    .catch((err) => {
+      console.error(err);
     });
 };
 
-showCards();
+window.onload = showCards;
 
-let searchSongs = function () {
+let searchSongs = () => {
   let search = document.querySelector("#searchField").value;
   url = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${search.toLowerCase()}`;
   showCards();
